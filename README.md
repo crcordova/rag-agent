@@ -1,4 +1,4 @@
-# 🤖 AI Document Analyzer
+# AI Document Analyzer
 
 Un agente de IA avanzado para análisis de documentos PDF que utiliza técnicas RAG (Retrieval-Augmented Generation) para proporcionar insights inteligentes y respuestas contextuales sobre tus documentos.
 
@@ -13,9 +13,9 @@ Un agente de IA avanzado para análisis de documentos PDF que utiliza técnicas 
 
 ## 🛠️ Stack Tecnológico
 
-- **Backend**: FastAPI
-- **Vector Database**: Qdrant
-- **RAG Framework**: LlamaIndex
+- **Backend**: FastAPI (framework simple de usar, swagger amigable con el usuario, asincrono perfecto para esperar el response desde los proveedores de LLM)
+- **Vector Database**: Qdrant (Open source y escalable)
+- **RAG Framework**: LlamaIndex (porque destaca en tareas de busqueda y recuperación como RAG)
 - **LLM Providers**: OpenAI / Groq
 - **Embeddings**: HuggingFace / OpenAI
 - **Containerización**: Docker & Docker Compose
@@ -214,7 +214,7 @@ docker-compose logs -f qdrant
 docker-compose ps
 ```
 
-## 📝 Estructura del Proyecto
+## Estructura del Proyecto
 
 ```
 ai-document-analyzer/
@@ -230,6 +230,33 @@ ai-document-analyzer/
 └── README.md              # Este archivo
 ```
 
+## Mejoras Futuras
+
+- **Persistencia de conversaciones y memoria contextual entre consultas**  
+Actualmente, cada query al agente se procesa de forma aislada. Una mejora clave sería almacenar el contexto de la conversación previa (a nivel usuario o sesión) para lograr interacciones más naturales y con seguimiento. Ej: follow-up questions sin necesidad de repetir contexto.  
+
+- **Selector avanzado de documentos para comparar o resumir**  
+Hoy el sistema compara contra todos los documentos cargados. Se podría implementar:
+
+  - Checkboxes para seleccionar documentos específicos.
+  - Búsqueda por nombre, etiquetas o categorías.
+  - Grupos o colecciones segmentadas.
+
+- **Clasificación automática de documentos al cargarlos**  
+Usar un LLM o un modelo ligero que detecte si el archivo es paper académico, contrato, política, reporte técnico, etc. Esto permitiría filtrar, organizar y mejorar la experiencia de búsqueda.
+
+- **Múltiples colecciones o namespaces en Qdrant**  
+Poder crear distintas colecciones (por proyecto, cliente o tema) y seleccionar de cuál nutrirse al momento de hacer queries. Ideal para organizaciones que cargan contenido variado.
+
+- **Embeddings especializados por tipo de documento**  
+Por ejemplo, usar embeddings científicos (como SciBERT) para papers y embeddings legales para contratos. Esto aumentaría la precisión de las respuestas.
+
+- **Extracción estructurada de datos clave** 
+Ej: Si se carga un contrato, extraer automáticamente partes como partes involucradas, fechas, valores, obligaciones. Esto seria generar output personificados con instructor para una extracción eficiente
+
+- **Entrenamiento incremental o fine-tuning ligero por usuario**   
+Permitir que el agente aprenda del estilo o necesidades de cada usuario de forma privada.
+
 ## 🤝 Contribuir
 
 1. Fork el proyecto
@@ -242,10 +269,3 @@ ai-document-analyzer/
 
 Copyright **"All Rights Reserved"**
 
-## 🆘 Soporte
-
-Si tienes problemas o preguntas:
-
-1. Revisa la sección de [Solución de Problemas](#-solución-de-problemas)
-2. Consulta la documentación de la API en `/docs`
-3. Abre un issue en el repositorio
